@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Home from './Home'
-import TodoList from './TodoList'
 import '../public/style.css'
 import axios from 'axios'
+import Todo from './Todo'
 
 const App = React.createClass({
   getInitialState () {
@@ -52,25 +52,7 @@ const App = React.createClass({
         <h1 className="text-center">To Do List</h1>
         <Home addTodo={this.addTodo} handleSearchTermChange={this.handleSearchTermChange}
               searchTerm={this.state.searchTerm}/>
-          <table className="table table-xs">
-            <thead className="thead-default">
-            <tr>
-              <th>To-do</th>
-              <th>Delete</th>
-            </tr>
-            </thead>
-            <tbody>
-          {this.state.todos
-              .filter((todo)=> {
-                return `${todo.task}`.indexOf(this.state.searchTerm) > -1;
-              })
-              .map((todo) => {
-            return (
-             <TodoList key={todo._id} todo={todo.task} todoId={todo._id} remove={this.removeTodo}/>
-            )
-          })}
-            </tbody>
-          </table>
+          <Todo todos={this.state.todos} searchTerm={this.state.searchTerm} remove={this.removeTodo} />
         </div>
     )
   }
